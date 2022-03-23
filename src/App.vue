@@ -288,5 +288,6 @@ p{
   position: absolute;
   top: 1013px;
   background-color: #0F1923;
+  width: 100%;
 }
 </style>

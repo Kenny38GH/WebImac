@@ -4,21 +4,30 @@
     <input type="checkbox" id="menu-toggle"/>
     <ul>
       <li>
-        <a href="#">&#x2708;</a>
+        <a @click="changeAgentCategory('Controller')"><img id="controller_icon" class="role_icon" src="https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png"></a>
       </li><li>
-        <a href="#">&#x266b;</a>
+        <a @click="changeAgentCategory('Initiator')"><img id="initiator_icon" class="role_icon" src="https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png"></a>
       </li><li>
-        <a href="#">&#x2709;</a>
+        <a @click="changeAgentCategory('Duelist')"><img id="duelist_icon" class="role_icon" src="https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png"></a>
+      </li><li>
+        <a @click="changeAgentCategory('Sentinel')"><img id="sentinel_icon" class="role_icon" src="https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png"></a>
       </li>
     </ul>
   </div>
-
+  <div class="gallery-option">
+    <input type="text" v-model="search" placeholder="Cherchez un agent..." @input="UpdateGallery()">
+  </div>
   <div class="AgentGalery">
     <AgentCard
-    v-for="agent in dataTab" 
+    v-for="agent in agentOrganizedData"
     :key="agent.uuid"
     :name="agent.displayName" 
-    :bustPortrait="agent.bustPortrait" />
+    :bustPortrait="agent.bustPortrait" 
+    />
+  </div>
+
+  <div id="resetButton" @click="reset()">
+    <img id= 'resetIcon' src='@/assets/img/restart-icon-18-256.png'>
   </div>
 </div>
 </template>
@@ -37,11 +46,27 @@ export default {
   components: {
     AgentCard
   },
+
   data(){
     return {
-      dataTab: []
+      dataTab: [],
+      AgentCategory: '',
+      AgentVisible: false,
+      search: "",
+      agentData: []
     }
   },
+
+  computed: {
+		agentOrganizedData: function() {
+      const filterFunc = (agent) => agent.displayName.toLowerCase().includes(this.search.toLowerCase())
+      let data = this.dataTab.filter(filterFunc)
+      if(this.AgentCategory!=''){data = data.filter(agent => agent.role.displayName == this.AgentCategory)}
+      return data
+		}
+	},
+
+
   created:function(){
     this.retrieveAgentData()
   },
@@ -49,6 +74,25 @@ export default {
   methods: {
     async retrieveAgentData(){
       this.dataTab = await getAgentData()
+    },
+
+    changeAgentCategory(refAgent){
+      this.AgentCategory = refAgent
+      console.log(this.AgentCategory)
+    },
+    isVisible(refAgent){
+      if(refAgent == this.AgentCategory){
+        return this.AgentVisible = true
+      }
+      if(refAgent == 'all'){
+        return this.AgentVisible = true
+      }
+      else{
+        return this.AgentVisible = false
+      }
+    },
+    reset(){
+      this.AgentCategory = ''
     }
   }
 }
@@ -56,6 +100,7 @@ export default {
 
 
 <style scoped>
+
 .AgentGalery{
   display: flex;
   justify-content: center;
@@ -67,30 +112,19 @@ p{
 }
 
 
-html, body{
-  margin:0;
-  padding:0;
-  font-family:sans-serif;
-}
-
 #menu{
   position:absolute;
   top:30px;
   left:30px;
   z-index:500;
-  height:50px;
   border-radius:25px;
   overflow:hidden;
-  background:#444;
+  background:#797979;
   box-shadow:0px 0px 10px rgba(0,0,0,.5);
   transition:all .5s ease;
 }
 
-#menu > *{
-  float:left;
-}
   
-
 #menu-toggle{
   display:block;
   cursor:pointer;
@@ -107,18 +141,20 @@ html, body{
 }
 
 #menu-toggle:checked~ul{
-    width:150px;
+    height: 200px;
     background-position:0px -50px;
   }
 
 
+
 ul{
+  display: block;
   list-style-type:none;
   margin:0;
-  padding:0 0 0 50px;
-  height:50px;
-  width:0px;
-  transition:.5s width ease;
+  padding:50px 0px 0px 0px;
+  height:0px;
+  width:50px;
+  transition:.4s height ease;
   background-image:url("https://i.imgur.com/3d0vJzn.png");
   background-repeat:no-repeat;
   background-position:0px 0px;
@@ -130,11 +166,48 @@ li{
   width:50px;
   text-align:center;
   margin:0;
+  
 }
-  a{
-    font-size:1.25em;
-    font-weight:bold;
-    color:white;
-    text-decoration:none;
-  }
+
+li:hover{
+  background-color: #f55c61d2;
+  cursor:pointer;
+}
+
+.role_icon{
+  position: relative;
+  top: 6px;
+  width: 25px;
+}
+
+.gallery-option{
+  padding-top: 10px;
+}
+
+#resetButton{
+  width: 50px;
+  height: 50px;
+  z-index:500;
+  border-radius:25px;
+  background:#797979;
+  box-shadow:0px 0px 10px rgba(0,0,0,.5);
+  position: absolute;
+  top: 30px;
+  right: 28px;
+
+}
+
+#resetIcon{
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 11px;
+}
+
+#resetButton:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
 </style>

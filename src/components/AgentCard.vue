@@ -41,6 +41,10 @@ export default {
     cursor:pointer;
 }
 
+.card:hover{
+    transform: scale(1.05);
+}
+
 .contours{
     
 
