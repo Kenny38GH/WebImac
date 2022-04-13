@@ -14,7 +14,7 @@ export default {
     props:{
         name: String,
         bustPortrait: String,
-        backgroundName: String
+        backgroundName: String,
     }
 }
 </script>
@@ -43,6 +43,7 @@ export default {
 
 .card:hover{
     transform: scale(1.05);
+    cursor:pointer;
 }
 
 .contours{

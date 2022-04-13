@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Menu id='menu'/>
-    <main>
+    <div>
       <div id="title">
-        VALORANT 
+        VALORANT
         <p>
           STATS
         </p>
@@ -22,7 +22,7 @@
       <img id= "line09" alt='line' src="./assets/img/Line.svg">
       <img id= "line10" alt='line' src="./assets/img/Line.svg">
       
-      <Button @click="OnClickPlay" id="PlayButton"> PLAY </Button>
+      <Button id="PlayButton" @click="goto('agentGalery')"> PLAY </Button>
       <div id= "number">
         05
       </div>
@@ -32,37 +32,70 @@
       <div id= "cubeone"></div>
       <div id= "cubetwo"></div>
       <div id= "cubethree"></div>
-    </main>
-    <div id='agentGalery'>
-      <AgentGalery/>
     </div>
+    <div id="agentGalery" ref="agentGalery">
+      <FilterMenu v-on:giveSearchContent="getSearchContent"/>
+      //<BigCard v-if="isBigCard"/>
+      <AgentGalery v-bind:search.sync="search_content"/>
+    </div>
+    <footer>FOOOOTTTERRR
+      <Footer/>
+    </footer>
   </div>
-  
 </template>
 
 <script>
 import Menu from './components/Menu.vue'
 import AgentGalery from './components/AgentGalery.vue'
 import Button from './components/Button.vue'
+import FilterMenu from './components/FilterMenu.vue'
+import Footer from './components/Footer.vue'
+//import BigCard from './components/BigCard.vue'
 
 export default {
   name: 'App',
   components: {
-    Menu,AgentGalery,Button
+    Menu,AgentGalery,Button,FilterMenu,Footer
   },
   methods: {
-    OnClickPlay(){
-      // DoSomething
+    getSearchContent: function(value){
+      this.search_content = value
+      console.log(this.search_content)
+    },
+    goto: function(refName) {
+      var element = this.$refs[refName];
+      var top = element.offsetTop;
+      window.scrollTo(0, top);
     }
-  }
+  },
+  data() {
+    return {
+      search_content: "",
+      isBigCard: false
+    }
+  },
 }
 </script>
 
+
+
 <style>
+@media (max-width: 1250px){
+  #cypher_img{
+    display: none;
+  }
+  #number{
+    display: none;
+  }
+
+}
+
 body{
+  position: relative;
   margin: 0;
   padding: 0;
 }
+
 
 @font-face{
   font-family: "Valorant";
@@ -290,4 +323,6 @@ p{
   background-color: #0F1923;
   width: 100%;
 }
+
+
 </style>

@@ -14,15 +14,16 @@
       </li>
     </ul>
   </div>
-  <div class="gallery-option">
-    <input type="text" v-model="search" placeholder="Cherchez un agent..." @input="UpdateGallery()">
+  <div class="numberOfAgents">
+    {{nbofAgents}}
   </div>
   <div class="AgentGalery">
     <AgentCard
     v-for="agent in agentOrganizedData"
     :key="agent.uuid"
     :name="agent.displayName" 
-    :bustPortrait="agent.bustPortrait" 
+    :bustPortrait="agent.bustPortrait"
+    @click.native="infoForSelectedAgent(agent,$event)"
     />
   </div>
 
@@ -41,7 +42,8 @@ getAgentData()
 export default {
   name: 'AgentGalery',
   props: {
-    msg: String
+    msg: String,
+    search: String
   },
   components: {
     AgentCard
@@ -52,20 +54,30 @@ export default {
       dataTab: [],
       AgentCategory: '',
       AgentVisible: false,
-      search: "",
-      agentData: []
+      agentData: [],
     }
   },
-
   computed: {
 		agentOrganizedData: function() {
       const filterFunc = (agent) => agent.displayName.toLowerCase().includes(this.search.toLowerCase())
       let data = this.dataTab.filter(filterFunc)
       if(this.AgentCategory!=''){data = data.filter(agent => agent.role.displayName == this.AgentCategory)}
       return data
-		}
+		},
+    nbofAgents: function() {
+      const filterFunc = (agent) => agent.displayName.toLowerCase().includes(this.search.toLowerCase())
+      let data = this.dataTab.filter(filterFunc)
+      if(this.AgentCategory!=''){data = data.filter(agent => agent.role.displayName == this.AgentCategory)}
+      let nb = 0
+      for(let i = 0; i < data.length; i++){
+        nb+=1
+      }
+      if (nb ==0) nb = "No agent"
+      else nb = nb + " agents"
+      return nb
+    }
 	},
-
+  
 
   created:function(){
     this.retrieveAgentData()
@@ -93,7 +105,12 @@ export default {
     },
     reset(){
       this.AgentCategory = ''
-    }
+      this.search = ''
+    },
+
+    infoForSelectedAgent: function(agent_selected) {
+			console.log(agent_selected)
+		}
   }
 }
 </script>
@@ -180,9 +197,12 @@ li:hover{
   width: 25px;
 }
 
-.gallery-option{
-  padding-top: 10px;
-}
+.numberOfAgents{
+  padding-top: 30px;
+  font-size: 33px;
+  font-family: Valorant;
+  color: whitesmoke;
+  }
 
 #resetButton{
   width: 50px;
