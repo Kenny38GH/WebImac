@@ -43,7 +43,9 @@ export default {
   name: 'AgentGalery',
   props: {
     msg: String,
-    search: String
+    search: String,
+    isCardClicked: Boolean,
+    Agent_sel: Object
   },
   components: {
     AgentCard
@@ -54,7 +56,7 @@ export default {
       dataTab: [],
       AgentCategory: '',
       AgentVisible: false,
-      agentData: [],
+      agentData: []
     }
   },
   computed: {
@@ -105,11 +107,16 @@ export default {
     },
     reset(){
       this.AgentCategory = ''
-      this.search = ''
+      this.$emit('update:isCardClicked',false)
+      this.$emit('update:search','')
+
     },
 
     infoForSelectedAgent: function(agent_selected) {
 			console.log(agent_selected)
+      this.$emit('update:isCardClicked',true)
+      this.$emit('update:Agent_sel',agent_selected)
+
 		}
   }
 }

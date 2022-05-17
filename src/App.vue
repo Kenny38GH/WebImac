@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Menu id='menu'/>
-    <div>
+    <div class="container">
       <div id="title">
         VALORANT
         <p>
@@ -22,7 +22,7 @@
       <img id= "line09" alt='line' src="./assets/img/Line.svg">
       <img id= "line10" alt='line' src="./assets/img/Line.svg">
       
-      <Button id="PlayButton" @click="goto('agentGalery')"> PLAY </Button>
+      <a href="#agentGalery"><Button id="PlayButton"> PLAY </Button></a>
       <div id= "number">
         05
       </div>
@@ -33,12 +33,12 @@
       <div id= "cubetwo"></div>
       <div id= "cubethree"></div>
     </div>
-    <div id="agentGalery" ref="agentGalery">
+    <div id="agentGalery">
       <FilterMenu v-on:giveSearchContent="getSearchContent"/>
-      //<BigCard v-if="isBigCard"/>
-      <AgentGalery v-bind:search.sync="search_content"/>
+      <BigCard v-if="isBigCard" v-bind:info.sync="SelectedAgent"/>
+      <AgentGalery v-bind:isCardClicked.sync="isBigCard" v-bind:search.sync="search_content" v-bind:Agent_sel.sync="SelectedAgent"/>
     </div>
-    <footer>FOOOOTTTERRR
+    <footer id="footer">
       <Footer/>
     </footer>
   </div>
@@ -50,12 +50,12 @@ import AgentGalery from './components/AgentGalery.vue'
 import Button from './components/Button.vue'
 import FilterMenu from './components/FilterMenu.vue'
 import Footer from './components/Footer.vue'
-//import BigCard from './components/BigCard.vue'
+import BigCard from './components/BigCard.vue'
 
 export default {
   name: 'App',
   components: {
-    Menu,AgentGalery,Button,FilterMenu,Footer
+    Menu,AgentGalery,Button,FilterMenu,Footer, BigCard
   },
   methods: {
     getSearchContent: function(value){
@@ -71,7 +71,8 @@ export default {
   data() {
     return {
       search_content: "",
-      isBigCard: false
+      isBigCard: false,
+      SelectedAgent:{}
     }
   },
 }
@@ -90,8 +91,11 @@ export default {
 
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 body{
-  position: relative;
   margin: 0;
   padding: 0;
 }
@@ -119,6 +123,7 @@ body{
   min-height: 100vh;
   position: relative;
   height: 140vh;
+  scroll-behavior: smooth;
   
 }
 #cypher_img{
@@ -144,6 +149,7 @@ body{
   transform:translateX(-50.1%);
   height: 25.9%;
   bottom: 0px;
+  width: 205vh;
 }
 
 #title{
@@ -318,11 +324,18 @@ p{
 }
 
 #agentGalery{
-  position: absolute;
-  top: 1013px;
+  position: relative;
   background-color: #0F1923;
   width: 100%;
 }
 
+.container{
+  position: relative;
+  height: 135vh;
+}
+
+#footer{
+  position: relative;
+}
 
 </style>
