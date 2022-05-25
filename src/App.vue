@@ -7,7 +7,7 @@
         <p>
           STATS
         </p>
-      </div>
+      </div>  
       <img id= "main_logo" alt='main logo' src="./assets/img/LogoSolo.png">
       <img id= "cypher_img" alt='Cypher img' src="./assets/img/V_AGENTS_587x900_Cypher.png">
       <img id= "bot_triangles" alt='tr1' src="./assets/img/bot_group.svg">
@@ -38,6 +38,7 @@
       <BigCard v-if="isBigCard" v-bind:info.sync="SelectedAgent"/>
       <AgentGalery v-bind:isCardClicked.sync="isBigCard" v-bind:search.sync="search_content" v-bind:Agent_sel.sync="SelectedAgent"/>
     </div>
+    <audio autoplay loop src=".\assets\VALORANT-Collection.mp3">Your browser does not support the <code>audio</code> element.</audio>
     <footer id="footer">
       <Footer/>
     </footer>
@@ -78,8 +79,6 @@ export default {
 }
 </script>
 
-
-
 <style>
 @media (max-width: 1250px){
   #cypher_img{
@@ -88,19 +87,14 @@ export default {
   #number{
     display: none;
   }
-
 }
-
 html{
   scroll-behavior: smooth;
 }
-
 body{
   margin: 0;
   padding: 0;
 }
-
-
 @font-face{
   font-family: "Valorant";
   src: local("Valorant"), url(./assets/fonts/ValorantFont.ttf) format("truetype");
@@ -124,7 +118,6 @@ body{
   position: relative;
   height: 140vh;
   scroll-behavior: smooth;
-  
 }
 #cypher_img{
   position: absolute;
@@ -132,7 +125,6 @@ body{
   top: 110px;
   z-index: 3;
 }
-
 #main_logo{
   position: absolute;
   z-index: 0;
@@ -141,7 +133,6 @@ body{
   width: 1150px;
   height: 996px;
 }
-
 #bot_triangles{
   position: absolute;
   z-index: 1;
@@ -151,7 +142,6 @@ body{
   bottom: 0px;
   width: 205vh;
 }
-
 #title{
   font-family: "Valorant";
   font-size: 90px;
@@ -161,7 +151,6 @@ body{
   position: absolute;
   left: 350px;
   top: 330px;
-  
 }
 p{
   font-family: "Valorant";
@@ -173,14 +162,12 @@ p{
   left: 30px;
   top: 5px;
 }
-
 #PlayButton{
   z-index: 1;
   position: absolute;
   left: 150px;
   top: 580px;
 }
-
 #line01{
   z-index: 1;
   position: absolute;
@@ -189,7 +176,6 @@ p{
   width: 20%;
   height: 40px;
 }
-
 #line02{
   z-index: 1;
   position: absolute;
@@ -198,7 +184,6 @@ p{
   width: 30%;
   height: 40px;
 }
-
 #line03{
   z-index: 2;
   position: absolute;
@@ -206,7 +191,6 @@ p{
   top: 210px;
   width: 30%;
 }
-
 #line04{
   z-index: 2;
   position: absolute;
@@ -214,7 +198,6 @@ p{
   top: 210px;
   width: 30%;
 }
-
 #line05{
   z-index: 2;
   position: absolute;
@@ -223,7 +206,6 @@ p{
   width: 30%;
   transform: rotate(90deg);
 }
-
 #line06{
   z-index: 2;
   position: absolute;
@@ -232,7 +214,6 @@ p{
   width: 30%;
   transform: rotate(90deg);
 }
-
 #line07{
   z-index: 0;
   position: absolute;
@@ -241,7 +222,6 @@ p{
   width: 20%;
   transform: rotate(90deg);
 }
-
 #line08{
   z-index: 0;
   position: absolute;
@@ -250,7 +230,6 @@ p{
   width: 20%;
   transform: rotate(90deg);
 }
-
 #line09{
   z-index: 0;
   position: absolute;
@@ -259,7 +238,6 @@ p{
   width: 20%;
   transform: rotate(90deg);
 }
-
 #line10{
   z-index: 2;
   position: absolute;
@@ -280,7 +258,6 @@ p{
   right: 120px;
   bottom: 190px;
 }
-
 #numberone{
   font-family: "Valorant";
   font-size: 55px;
@@ -292,7 +269,6 @@ p{
   left: 140px;
   top: 305px;
 }
-
 #cubeone{
   z-index: 1;
   position: absolute;
@@ -302,7 +278,6 @@ p{
   width: 18px;
   height: 18px;
 }
-
 #cubetwo{
   z-index: 1;
   position: absolute;
@@ -312,7 +287,6 @@ p{
   width: 18px;
   height: 18px;
 }
-
 #cubethree{
   z-index: 1;
   position: absolute;
@@ -322,20 +296,16 @@ p{
   width: 18px;
   height: 18px;
 }
-
 #agentGalery{
   position: relative;
   background-color: #0F1923;
   width: 100%;
 }
-
 .container{
   position: relative;
   height: 135vh;
 }
-
 #footer{
   position: relative;
 }
-
 </style>
